@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+</head>
+<body>
+    <nav class="d-flex justify-content-between">
+        <h1>Welcome {{loggedUser.first_name}} {{loggedUser.last_name}}</h1>
+        <div>
+        <a href="/add/pie" class="btn btn-primary me-3">Add Pie</a>
+        <a href="/pies" class="btn btn-primary me-3">Pie Derby</a>
+        <a class="btn btn-danger" href="/logout">Logout</a>
+        </div>
+    </nav>
+    <div class="col-lg-12 p-5">
+        <h2 class="text-center">PyPies By {{loggedUser.first_name}}</h2>
+        
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+
+        {% for pie in pies %}
+            {% if loggedUser.id == pie.user_id %}
+                <tr>
+                    <td>{{pie.name}}</td>
+                    <td><a href="/edit/pie/{{pie.id}}">Edit Pie</a> <a href="/delete/pie/{{pie.id}}">Delete Pie</a></td>
+                </tr>
+            {% endif %}
+        {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+</body>
+</html>
